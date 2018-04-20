@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="loader" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Linux">
+				<Option output="./loader" prefix_auto="1" extension_auto="1" />
+				<Option object_output="./" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option parameters="british_summer.jpg" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add directory="include" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="GL" />
+					<Add library="GLU" />
+					<Add library="glut" />
+					<Add directory="lib/iup" />
+					<Add directory="lib" />
+				</Linker>
+			</Target>
+			<Target title="Windows">
+				<Option output="./loader" prefix_auto="1" extension_auto="1" />
+				<Option object_output="./" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option parameters="british_summer.jpg" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add directory="include" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="gdi32" />
+					<Add library="comdlg32" />
+					<Add library="comctl32" />
+					<Add library="oleaut32" />
+					<Add library="uuid" />
+					<Add library="ole32" />
+					<Add library="glu32" />
+					<Add library="opengl32" />
+					<Add library="winmm" />
+					<Add library="freeglut" />
+					<Add directory="." />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-g" />
+			<Add option="-fexceptions -std=c11" />
+			<Add directory="include/iup" />
+		</Compiler>
+		<Unit filename="lib/SOIL/SOIL.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lib/SOIL/SOIL.h" />
+		<Unit filename="lib/SOIL/image_DXT.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lib/SOIL/image_DXT.h" />
+		<Unit filename="lib/SOIL/image_helper.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lib/SOIL/image_helper.h" />
+		<Unit filename="lib/SOIL/stb_image_aug.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lib/SOIL/stb_image_aug.h" />
+		<Unit filename="lib/SOIL/stbi_DDS_aug.h" />
+		<Unit filename="lib/SOIL/stbi_DDS_aug_c.h" />
+		<Unit filename="main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Extensions>
+			<envvars />
+			<code_completion />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
