@@ -21,14 +21,14 @@ void load(char* name, Img* pic);
 
 
 
-char encript(char *texto, int chave, int tipo) // tipo = 0 -> cifrar| tipo = 1 -> decifrar
+char encript(char* texto, int chave, int tipo) // tipo = 0 -> cifrar| tipo = 1 -> decifrar
 {
     /*-----VARIAVEIS PRINCIPAIS--------*/
     int tam=strlen(texto); //recupera o tamanho da string texto
     int i=0; // variavel aux. incremento
     int cont=0; // variavel contador... impendido cifrar uma posicao já cifrada...
     char letra; //variavel alfabeto xD
-
+    printf("Mensagem : %s\n",texto);
     for (letra='a'; letra<='z'; letra++)
         {
             while(i<=tam)
@@ -79,7 +79,7 @@ char encript(char *texto, int chave, int tipo) // tipo = 0 -> cifrar| tipo = 1 -
     /*-----------------------------------------*/
 
     if(tipo == 0)
-        return printf("Codigo gerado: %s\n",texto);
+        return printf("Mensagem cifrada em rot %d : %s\n",chave,texto);
     else
         return printf("Mensagem decifrada: %s\n",texto);
 }
@@ -113,10 +113,31 @@ int main(int argc, char** argv)
     char* frase  = argv[2];
     encript(frase, 1, 0);
 
+
+    int a=0;
+    int b=0;
+    int tam=strlen(frase);
+    printf("Bits de cada palavra:\n");
+    while(a<=tam){
+
+        printf("%c",frase[a]);
+        printf("%s"," -> ");
+        for(b = 7; 0 <= b; b--){
+            printf("%d", (frase[a] >> b) & 0x01);
+        }
+        printf("\n");
+        a++;
+
+    }
+
     for(int i=0; i<pic.height * pic.width; i++) {
-       pic.img[i].r = pic.img[i].g;
-       pic.img[i].g = pic.img[i].b;
-       pic.img[i].b = pic.img[i].r;
+        printf("[%02X %02X %02X]", pic.img[i].r,pic.img[i].g,pic.img[i].b);
+         for(b = 7; 0 <= b; b--){
+            printf("%d", (pic.img[i].r >> b) & 0x01);
+            printf("%d", (pic.img[i].g >> b) & 0x01);
+            printf("%d", (pic.img[i].b >> b) & 0x01);
+        }
+        printf("\n");
     }
 
     printf("\n");
