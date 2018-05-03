@@ -120,25 +120,46 @@ int main(int argc, char** argv)
     printf("Bits de cada palavra:\n");
     while(a<=tam){
 
+
+
         printf("%c",frase[a]);
         printf("%s"," -> ");
-        for(b = 7; 0 <= b; b--){
-            printf("%d", (frase[a] >> b) & 0x01);
+        for(b = 7; 1 <= b; b-=2){
+            unsigned char w = (frase[a] >> b) & 0x01; //pega o bit na posicao b e faz um AND com o bit 1 retorna um se
+                                                      //forem iguais ou seja se b for 1 e retorna 0 se forem diferentes
+                                                      //ou seja quando b for zero
+            
+            unsigned char ww = (frase[a] >> b-1) & 0x01;
+            pic.img[a].r = (frase[a] >> b) & 0x01;
+            pic.img[a].r = (frase[a] >> b-1) & 0x01;
+
+           // printf("%d",w);
+           // printf("%d",ww);
         }
         printf("\n");
+       
+
+
+
+       // for(int i=0; i<1; i++) {
+
+        //     for(b = 7; 0 <= b; b--){
+        //        printf("%d", (pic.img[i].r >> b) & 0x01);
+       //     }
+
+
+       // }
+
+
+
         a++;
 
+
     }
 
-    for(int i=0; i<pic.height * pic.width; i++) {
-        printf("[%02X %02X %02X]", pic.img[i].r,pic.img[i].g,pic.img[i].b);
-         for(b = 7; 0 <= b; b--){
-            printf("%d", (pic.img[i].r >> b) & 0x01);
-            printf("%d", (pic.img[i].g >> b) & 0x01);
-            printf("%d", (pic.img[i].b >> b) & 0x01);
-        }
-        printf("\n");
-    }
+
+
+
 
     printf("\n");
     SOIL_save_image("saida.bmp", SOIL_SAVE_TYPE_BMP, pic.width,
