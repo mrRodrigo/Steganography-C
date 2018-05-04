@@ -105,16 +105,16 @@ void load(char* name, Img* pic)
 void gravaBitPalavra( int cor,int pixelPos,Img pic, unsigned char w,  unsigned char ww){
     switch (cor){
         case 0:
-            pic.img[pixelPos].r ^= (-w ^ pic.img[pixelPos].r) & (0x01);
-            pic.img[pixelPos].r ^= (-ww ^ pic.img[pixelPos].r) & (0x01 << 1);
+            pic.img[pixelPos].r ^= (-ww ^ pic.img[pixelPos].r) & (0x01);
+            pic.img[pixelPos].r ^= (-w ^ pic.img[pixelPos].r) & (0x01 << 1);
             break;
         case 1:
-            pic.img[pixelPos].g ^= (-w ^ pic.img[pixelPos].g) & (0x01 );
-            pic.img[pixelPos].g ^= (-ww ^ pic.img[pixelPos].g) & (0x01 << 1);
+            pic.img[pixelPos].g ^= (-ww ^ pic.img[pixelPos].g) & (0x01 );
+            pic.img[pixelPos].g ^= (-w ^ pic.img[pixelPos].g) & (0x01 << 1);
             break;
         case 2:
-            pic.img[pixelPos].b ^= (-w ^ pic.img[pixelPos].b) & (0x01);
-            pic.img[pixelPos].b ^= (-ww ^ pic.img[pixelPos].b) & (0x01 << 1);
+            pic.img[pixelPos].b ^= (-ww ^ pic.img[pixelPos].b) & (0x01);
+            pic.img[pixelPos].b ^= (-w ^ pic.img[pixelPos].b) & (0x01 << 1);
             break;
     }
 
@@ -141,10 +141,10 @@ int main(int argc, char** argv)
  unsigned char ww;
     int a=0;
     int b=0;
-   // int tam=strlen(frase);
-    int tam=1;
+    int tam=strlen(frase);
+   // int tam=1;
     printf("Bits de cada palavra:\n");
-    while(a<tam){
+    while(a<=tam){
 
 
 
