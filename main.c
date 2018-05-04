@@ -18,7 +18,8 @@ typedef struct {
 
 // Protótipos
 void load(char* name, Img* pic);
-
+gravaBitPalavra( unsigned char w,  unsigned char ww);
+char encript(char* texto, int chave, int tipo);
 
 
 char encript(char* texto, int chave, int tipo) // tipo = 0 -> cifrar| tipo = 1 -> decifrar
@@ -99,6 +100,28 @@ void load(char* name, Img* pic)
     printf("Load: %d x %d x %d\n", pic->width, pic->height, chan);
 }
 
+
+
+void gravaBitPalavra( int cor,int pixelPos,Img pic, unsigned char w,  unsigned char ww){
+    switch (cor){
+        case cor == 0:
+            pic.img[pixelPos].r ^= (!w ^ pic.img[a].r) & (0x01 << 0);
+            pic.img[pixelPos].r ^= (!ww ^ pic.img[a].r) & (0x01 << 1);
+            break;
+        case cor == 1:
+            pic.img[pixelPos].g ^= (!w ^ pic.img[a].g) & (0x01 << 0);
+            pic.img[pixelPos].g ^= (!ww ^ pic.img[a].g) & (0x01 << 1);
+            break;
+        case cor == 2:
+            pic.img[pixelPos].b ^= (!w ^ pic.img[a].b) & (0x01 << 0);
+            pic.img[pixelPos].b ^= (!ww ^ pic.img[a].b) & (0x01 << 1);
+            break;
+    }
+
+
+}
+
+
 int main(int argc, char** argv)
 {
     Img pic;
@@ -116,45 +139,50 @@ int main(int argc, char** argv)
 
     int a=0;
     int b=0;
-    int tam=strlen(frase);
+   // int tam=strlen(frase);
+    int tam=1;
     printf("Bits de cada palavra:\n");
-    while(a<=tam){
+    while(a<tam){
 
 
 
         printf("%c",frase[a]);
         printf("%s"," -> ");
+        for(b = 7; 1 <= b; b--){
+                printf("%d",(frase[a] >> b) & 0x01);
+            }
+            printf("\n");
         for(b = 7; 1 <= b; b-=2){
-            unsigned char w = (frase[a] >> b) & 0x01; //pega o bit na posicao b e faz um AND com o bit 1 retorna um se
+             unsigned char w = ((frase[a] >> b) & 0x01); //pega o bit na posicao b e faz um AND com o bit 1 retorna um se
                                                       //forem iguais ou seja se b for 1 e retorna 0 se forem diferentes
                                                       //ou seja quando b for zero
-            
-            unsigned char ww = (frase[a] >> b-1) & 0x01;
-            pic.img[a].r = (frase[a] >> b) & 0x01;
-            pic.img[a].r = (frase[a] >> b-1) & 0x01;
 
-           // printf("%d",w);
-           // printf("%d",ww);
+             unsigned char ww = (frase[a] >> b-1) & 0x01;
+
+             printf("%s%d","Valor de W: ",w);
+             printf("\n");
+             printf("%s%d","Valor de WW: ",ww);
+
+             printf("\n");
+
+            printf("%s","antes : ");
+            for(b = 7; 1 <= b; b--){
+                printf("%d",(pic.img[a].r >> b) & 0x01);
+            }
+            printf("\n");
+
+            pic.img[a].r ^= (!w ^ pic.img[a].r) & (0x01 << 0);
+            pic.img[a].r ^= (!ww ^ pic.img[a].r) & (0x01 << 1);
+
+            printf("%s","depois : ");
+
+            for(b = 7; 1 <= b; b--){
+                printf("%d",(pic.img[a].r >> b) & 0x01);
+            }
+
         }
         printf("\n");
-       
-
-
-
-       // for(int i=0; i<1; i++) {
-
-        //     for(b = 7; 0 <= b; b--){
-        //        printf("%d", (pic.img[i].r >> b) & 0x01);
-       //     }
-
-
-       // }
-
-
-
         a++;
-
-
     }
 
 
@@ -166,3 +194,7 @@ int main(int argc, char** argv)
                     pic.height, 3, pic.img);
     free(pic.img);
 }
+
+
+
+
