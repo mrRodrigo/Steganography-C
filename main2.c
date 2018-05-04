@@ -5,6 +5,10 @@
 // SOIL é a biblioteca para leitura das imagens
 #include "SOIL.h"
 
+
+// CONSTANTE QUE REPRESENTA O FINAL DA GRAVAÇÃO
+#define FINALCHAR '$'
+
 // Um pixel RGB
 typedef struct {
     unsigned char r, g, b;
@@ -16,10 +20,15 @@ typedef struct {
     RGB* img;
 } Img;
 
+
+
+
 // Protótipos
 void load(char* name, Img* pic);
-void gravaBitPalavra( int cor,int pixelPos,Img pic, unsigned char w,  unsigned char ww);
+void gravaBitPalavra(int cor,int pixelPos,Img pic, unsigned char w,  unsigned char ww);
 char encript(char* texto, int chave, int tipo);
+
+
 
 
 char encript(char* texto, int chave, int tipo) // tipo = 0 -> cifrar| tipo = 1 -> decifrar
@@ -102,22 +111,22 @@ void load(char* name, Img* pic)
 
 
 
-void gravaBitPalavra( int cor,int pixelPos,Img pic, unsigned char w,  unsigned char ww){
-    switch (cor){
-        case 0:
-            pic.img[pixelPos].r ^= (-ww ^ pic.img[pixelPos].r) & (0x01);
-            pic.img[pixelPos].r ^= (-w ^ pic.img[pixelPos].r) & (0x01 << 1);
-            break;
-        case 1:
-            pic.img[pixelPos].g ^= (-ww ^ pic.img[pixelPos].g) & (0x01 );
-            pic.img[pixelPos].g ^= (-w ^ pic.img[pixelPos].g) & (0x01 << 1);
-            break;
-        case 2:
-            pic.img[pixelPos].b ^= (-ww ^ pic.img[pixelPos].b) & (0x01);
-            pic.img[pixelPos].b ^= (-w ^ pic.img[pixelPos].b) & (0x01 << 1);
-            break;
-    }
+void gravaBitPalavra(int cor,int pixelPos,Img pic, unsigned char w,  unsigned char ww){
 
+        switch (cor){
+            case 0:
+                pic.img[pixelPos].r ^= (-ww ^ pic.img[pixelPos].r) & (0x01);
+                pic.img[pixelPos].r ^= (-w ^ pic.img[pixelPos].r) & (0x01 << 1);
+                break;
+            case 1:
+                pic.img[pixelPos].g ^= (-ww ^ pic.img[pixelPos].g) & (0x01 );
+                pic.img[pixelPos].g ^= (-w ^ pic.img[pixelPos].g) & (0x01 << 1);
+                break;
+            case 2:
+                pic.img[pixelPos].b ^= (-ww ^ pic.img[pixelPos].b) & (0x01);
+                pic.img[pixelPos].b ^= (-w ^ pic.img[pixelPos].b) & (0x01 << 1);
+                break;
+        }
     return 0;
 }
 
@@ -127,6 +136,10 @@ int main(int argc, char** argv)
     Img pic;
     int cor = 0 ;
     int pixelPos = 0 ;
+
+
+
+
     if(argc < 2) {
         printf("loader [img]\n");
         exit(1);
@@ -135,10 +148,10 @@ int main(int argc, char** argv)
     load(argv[1], &pic);
 
     char* frase  = argv[2];
-    encript(frase, 1, 0);
+    encript(frase, 0, 0);
 
- unsigned char w;
- unsigned char ww;
+    unsigned char w;
+    unsigned char ww;
     int a=0;
     int b=0;
     int tam=strlen(frase);
@@ -170,7 +183,7 @@ int main(int argc, char** argv)
                 cor=0;
             }
 
-            printf("%s%d%s%d\n","COR ",cor,"  POSICAO ",pixelPos);
+            printf("%s%d%s%d\n","COR ",cor,"  PIXEL ",pixelPos);
             printf("%s\n","antes : ");
             for(int d = 7; 0 <= d; d--){
                 printf("%d",(pic.img[pixelPos].r >> d) & 0x01);
@@ -208,6 +221,23 @@ int main(int argc, char** argv)
         printf("%s\n","FIM");
         a++;
     }
+
+    //grava o char final para marcar o final da mensagem gravada na imagem
+    for(int aa = 7; 0 <= aa; aa--){
+            printf("%d",(FINALCHAR >> aa) & 0x01);
+    }
+    for(b = 7; 0 <= b; b-=2){
+        if (cor >= 3){
+            pixelPos ++;
+            cor=0;
+        }
+        w = (FINALCHAR >> b) & 0x01;
+        ww = (FINALCHAR >> b-1) & 0x01;
+        gravaBitPalavra(cor,pixelPos,pic, w, ww);
+        cor ++;
+    }
+
+
 
 
 
