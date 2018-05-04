@@ -105,20 +105,20 @@ void load(char* name, Img* pic)
 void gravaBitPalavra( int cor,int pixelPos,Img pic, unsigned char w,  unsigned char ww){
     switch (cor){
         case 0:
-            pic.img[pixelPos].r ^= (!w ^ pic.img[pixelPos].r) & (0x01);
-            pic.img[pixelPos].r ^= (!ww ^ pic.img[pixelPos].r) & (0x01 << 1);
+            pic.img[pixelPos].r ^= (-w ^ pic.img[pixelPos].r) & (0x01);
+            pic.img[pixelPos].r ^= (-ww ^ pic.img[pixelPos].r) & (0x01 << 1);
             break;
         case 1:
-            pic.img[pixelPos].g ^= (!w ^ pic.img[pixelPos].g) & (0x01 );
-            pic.img[pixelPos].g ^= (!ww ^ pic.img[pixelPos].g) & (0x01 << 1);
+            pic.img[pixelPos].g ^= (-w ^ pic.img[pixelPos].g) & (0x01 );
+            pic.img[pixelPos].g ^= (-ww ^ pic.img[pixelPos].g) & (0x01 << 1);
             break;
         case 2:
-            pic.img[pixelPos].b ^= (!w ^ pic.img[pixelPos].b) & (0x01);
-            pic.img[pixelPos].b ^= (!ww ^ pic.img[pixelPos].b) & (0x01 << 1);
+            pic.img[pixelPos].b ^= (-w ^ pic.img[pixelPos].b) & (0x01);
+            pic.img[pixelPos].b ^= (-ww ^ pic.img[pixelPos].b) & (0x01 << 1);
             break;
     }
 
-
+    return 0;
 }
 
 
@@ -137,7 +137,8 @@ int main(int argc, char** argv)
     char* frase  = argv[2];
     encript(frase, 1, 0);
 
-
+ unsigned char w;
+ unsigned char ww;
     int a=0;
     int b=0;
    // int tam=strlen(frase);
@@ -154,20 +155,22 @@ int main(int argc, char** argv)
             }
             printf("\n");
         for(b = 7; 0 <= b; b-=2){
-             unsigned char w = ((frase[a] >> b) & 0x01); //pega o bit na posicao b e faz um AND com o bit 1 retorna um se
+             w = ((frase[a] >> b) & 0x01); //pega o bit na posicao b e faz um AND com o bit 1 retorna um se
                                                       //forem iguais ou seja se b for 1 e retorna 0 se forem diferentes
                                                       //ou seja quando b for zero
 
-             unsigned char ww = (frase[a] >> b-1) & 0x01;
+             ww = (frase[a] >> b-1) & 0x01;
              printf("\n");
              printf("%s%d","Valor de W: ",w);
              printf("\n");
              printf("%s%d","Valor de WW: ",ww);
              printf("\n");
-            if (cor > 3){
+            if (cor >= 3){
                 pixelPos ++;
                 cor=0;
             }
+
+            printf("%s%d%s%d\n","COR ",cor,"  POSICAO ",pixelPos);
             printf("%s\n","antes : ");
             for(int d = 7; 0 <= d; d--){
                 printf("%d",(pic.img[pixelPos].r >> d) & 0x01);
@@ -201,7 +204,8 @@ int main(int argc, char** argv)
             }
 
         }
-        printf("%s\n","ASD");
+        printf("\n");
+        printf("%s\n","FIM");
         a++;
     }
 
