@@ -35,7 +35,8 @@ int  getBit (int cor,int pixelPos,Img pic, int position); //retorna um bit de um
 
 
 
-char encript(char* texto, int chave, int tipo) // tipo = 0 -> cifrar| tipo = 1 -> decifrar
+char encript(char* texto, int chave, int tipo) // tipo = 0 cifrar 
+                                               // tipo = 1  decifrar
 {
     int tam=strlen(texto); 
     int i=0; 
