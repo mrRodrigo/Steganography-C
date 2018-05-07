@@ -2,8 +2,8 @@
 
 ## O programa pode ser dividido em duas partes:
 
-* Codificador (classe steganography): lê uma imagem, encripta uma mensagem nele, grava um novo arquivo com o resultado.</br>
-* Decodificador (classe undoGraphy): lê a imagem com as informações ocultas, decifra e exibe a mensagem na tela.
+* Codificador (função steganography): lê uma imagem, encripta uma mensagem nele, grava um novo arquivo com o resultado.</br>
+* Decodificador (função undoGraphy): lê a imagem com as informações ocultas, decifra e exibe a mensagem na tela.
 
 ### Encriptação 
 Para a encriptação é utilizado a Cifra de César,uma das mais simples e conhecidas técnicas de criptografia. É um tipo de cifra de substituição na qual cada letra do texto é substituída por outra, que se apresenta no alfabeto acima dela um número fixo de vezes. Por exemplo, com uma troca de duas posições, A seria substituído por C, B se tornaria D, e assim por diante. O nome do método é em homenagem a Júlio César, que o usou para se comunicar com os seus generais.
@@ -26,7 +26,7 @@ Serve para esconder um texto em uma imagem
 [Nome da imagem] [comando] [chave da cifra de cesar] [" frase a ser escondida"]
 
 
-### exemplo
+### Exemplo
 * Para esconder um texto em uma imagem </br>
 Mona_lisa.jpg -hide 5 "Nihil verum Omnia Licita"
 
