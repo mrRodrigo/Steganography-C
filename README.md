@@ -11,3 +11,24 @@ Para a encriptação é utilizado a Cifra de César,uma das mais simples e conhe
 
 ### Esteganografia 
 Há diversas técnicas para realizar o processo de esteganografia em imagens, com graus diferentes de complexidade. Uma técnica simples é a alteração dos bits menos significativos de cada pixel. Essa técnica consiste em substituir um ou mais bits menos significativos de cada componente de cor de um pixel por uma parte da mensagem. Como temos 8 bits para R, G e B, isso em geral altera muito pouco a cor de cada pixel. 
+
+
+### Comandos
+Basicamente temos dois principais comandos:
+* "-reveal"
+Serve para "revelar" uma esteganografia já feita em uma imagem.
+
+* "-hide"
+Serve para esconder um texto em uma imagem
+
+* Base de execução
+
+[Nome da imagem] [comando] [chave da cifra de cesar] [" frase a ser escondida"]
+
+
+### exemplo
+* Para esconder um texto em uma imagem </br>
+Mona_lisa.jpg -hide 5 "Nihil verum Omnia Licita"
+
+* Para revelar um texto em uma imagem </br>
+Mona_lisa.bmp -reveal 5
